@@ -8,6 +8,7 @@
 	<script src="js/xml2json.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js
 "></script>
+	<script src="js/typeid.js"></script>
 	<script src="js/controller.js"></script>
 </head>
 <body ng-controller="concordController">
@@ -26,7 +27,36 @@
 		</div>
 	</nav>
 
-	
+	<div id="sorter">
+		<div id="sort-text">Sort By:</div>
+		<div id="sort-btn-wrapper">
+			<button type="button" class="btn sort-btn" ng-click="listBy('lpBySell')">Lowest Offer</button>
+			<button type="button" class="btn sort-btn" ng-click="listBy('lpByBuy')">Higest Bid</button>
+		</div>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<th>TypeID</th>
+			<th>Name</th>
+			<th>LP Price</th>
+			<th>Isk Price</th>
+			<th>Price</th>
+			<th>Isk per LP</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in items | orderBy: sortBy">
+				<th scope="row">{{item.id}}</th>
+				<td>{{item.name}}</td>
+				<td>{{item.lpPrice}}</td>
+				<td>{{item.iskPrice}}</td>
+				<td ng-show="sortSell">{{item.sellPrice}}</td>
+				<td ng-show="sortBuy">{{item.buyPrice}}</td>
+				<td ng-show="sortSell">{{item.lpBySell}}</td>
+				<td ng-show="sortBuy">{{item.lpByBuy}}</td>
+			</tr>
+		</tbody>
+	</table>
 
 
 </body>
